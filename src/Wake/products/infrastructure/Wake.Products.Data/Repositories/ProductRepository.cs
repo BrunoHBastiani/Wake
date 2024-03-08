@@ -37,7 +37,7 @@ public sealed class ProductRepository : IProductRepository
             await using var context = new WakeProductsContext();
 
             var foundProduct = await context.Products
-                .FirstOrDefaultAsync(p => 
+                .FirstOrDefaultAsync(p =>
                     p.Name == product.Name &&
                     p.Price == product.Price &&
                     p.IsActive == true);

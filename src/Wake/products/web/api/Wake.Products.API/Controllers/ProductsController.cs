@@ -4,7 +4,6 @@ using System.Net;
 
 using Wake.Products.Application.Dtos.Requests;
 using Wake.Products.Application.Interfaces;
-using Wake.Products.Domain.Entities;
 using Wake.Products.Domain.Exceptions;
 using Wake.Products.Domain.Resources;
 
@@ -29,7 +28,7 @@ public class ProductsController : ControllerBase
 
             return StatusCode((int)HttpStatusCode.OK, foundProduct);
         }
-        catch (HttpException ex) 
+        catch (HttpException ex)
         {
             return StatusCode((int)ex.StatusCode, ex.Message);
         }

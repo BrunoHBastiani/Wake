@@ -69,7 +69,7 @@ public sealed class ProductService : IProductService
         {
             throw;
         }
-        catch 
+        catch
         {
             throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
         }
