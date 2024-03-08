@@ -45,7 +45,7 @@ public class ProductsController : ControllerBase
         {
             var createdProduct = await _productService.CreateAsync(createProductRequest);
 
-            return StatusCode((int)HttpStatusCode.OK, createdProduct);
+            return StatusCode((int)HttpStatusCode.Created, createdProduct);
         }
         catch (HttpException ex)
         {
