@@ -89,11 +89,8 @@ public sealed class ProductService : IProductService
                 }
             }
 
-            var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId);
-            if (foundProduct is null)
-            {
+            var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId) ??
                 throw new HttpNotFoundException(ExceptionMessages.ProductDoesNotExist);
-            }
 
             foundProduct.Update(
                 updateProductRequest.Name,
@@ -121,11 +118,8 @@ public sealed class ProductService : IProductService
     {
         try
         {
-            var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId);
-            if (foundProduct is null)
-            {
+            var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId) ??
                 throw new HttpNotFoundException(ExceptionMessages.ProductDoesNotExist);
-            }
 
             foundProduct.Deactivate();
 
