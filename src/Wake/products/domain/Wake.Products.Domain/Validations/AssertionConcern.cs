@@ -69,6 +69,14 @@ namespace Wake.Products.Domain.Validations
             }
         }
 
+        public static void GreaterThanOrEqual(decimal value, decimal limit, string message)
+        {
+            if (value < limit)
+            {
+                throw new HttpBadRequestException(message);
+            }
+        }
+
         public static void LessThanOrEqual(int value, int limit, string message)
         {
             if (value > limit)

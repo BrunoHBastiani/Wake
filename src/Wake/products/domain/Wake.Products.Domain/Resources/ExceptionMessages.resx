@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="HttpInternalServerError" xml:space="preserve">
+    <value>Ocorreu um erro interno no servidor durante o processamento. Favor entrar em contato com o suporte para mais informações</value>
+  </data>
+  <data name="ProductAlreadyExists" xml:space="preserve">
+    <value>Já existe um produto ativo com essas caracteristicas</value>
+  </data>
   <data name="ProductDescriptionExceedsMaximumCharacterLimit" xml:space="preserve">
     <value>A descrição do produto deve ter no máximo duzentos caracteres</value>
+  </data>
+  <data name="ProductDoesNotExist" xml:space="preserve">
+    <value>O produto informado não existe</value>
   </data>
   <data name="ProductNameBelowMinimumCharacterLimit" xml:space="preserve">
     <value>O nome do produto precisa ter no mínimo dois caracteres</value>
@@ -128,6 +137,9 @@
   </data>
   <data name="ProductNameIsNullorEmpty" xml:space="preserve">
     <value>O nome do produto é obrigatório</value>
+  </data>
+  <data name="ProductNotCreated" xml:space="preserve">
+    <value>Ocorreu um erro interno na criação do produto. Favor entrar em contato com o suporte para mais informações</value>
   </data>
   <data name="ProductPriceIsNegative" xml:space="preserve">
     <value>O preço do produto não pode ser negativo</value>

@@ -3,7 +3,7 @@
 using Wake.Products.Domain.Entities;
 
 namespace Wake.Products.Data;
-public sealed class WakeProductsContext(DbContextOptions<WakeProductsContext> options) : DbContext(options)
+public sealed class WakeProductsContext : DbContext
 {
     public DbSet<Product> Products { get; set; }
 

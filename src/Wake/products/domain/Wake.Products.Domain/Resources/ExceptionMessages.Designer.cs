@@ -61,11 +61,38 @@ namespace Wake.Products.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro interno no servidor durante o processamento. Favor entrar em contato com o suporte para mais informações.
+        /// </summary>
+        public static string HttpInternalServerError {
+            get {
+                return ResourceManager.GetString("HttpInternalServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Já existe um produto ativo com essas caracteristicas.
+        /// </summary>
+        public static string ProductAlreadyExists {
+            get {
+                return ResourceManager.GetString("ProductAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A descrição do produto deve ter no máximo duzentos caracteres.
         /// </summary>
         public static string ProductDescriptionExceedsMaximumCharacterLimit {
             get {
                 return ResourceManager.GetString("ProductDescriptionExceedsMaximumCharacterLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O produto informado não existe.
+        /// </summary>
+        public static string ProductDoesNotExist {
+            get {
+                return ResourceManager.GetString("ProductDoesNotExist", resourceCulture);
             }
         }
         
@@ -93,6 +120,15 @@ namespace Wake.Products.Domain.Resources {
         public static string ProductNameIsNullorEmpty {
             get {
                 return ResourceManager.GetString("ProductNameIsNullorEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro interno na criação do produto. Favor entrar em contato com o suporte para mais informações.
+        /// </summary>
+        public static string ProductNotCreated {
+            get {
+                return ResourceManager.GetString("ProductNotCreated", resourceCulture);
             }
         }
         

@@ -38,10 +38,10 @@ public sealed class Product : BaseEntity
     public static void ValidateCreation(string name, string description, decimal price)
     {
         AssertionConcern.NotNullOrWhiteSpace(name, ExceptionMessages.ProductNameIsNullorEmpty);
-        AssertionConcern.SizeLessThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
-        AssertionConcern.SizeGreaterThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
-        AssertionConcern.SizeGreaterThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
-        AssertionConcern.LessThan(price, 0, ExceptionMessages.ProductPriceIsNegative);
+        AssertionConcern.SizeGreaterThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
+        AssertionConcern.SizeLessThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
+        AssertionConcern.SizeLessThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
+        AssertionConcern.GreaterThanOrEqual(price, 0, ExceptionMessages.ProductPriceIsNegative);
     }
 
     public static void ValidateUpdate(string? name, string? description, decimal? price)
