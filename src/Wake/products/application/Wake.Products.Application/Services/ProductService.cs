@@ -60,7 +60,6 @@ public sealed class ProductService : IProductService
             var createdProduct = await _ProductRepository.CreateAsync(productToCreate) ??
                 throw new HttpInternalServerErrorException("");
 
-
             var productToReturn = CreateProductResponse.FromProductToDTO(createdProduct);
 
             return productToReturn;
@@ -80,8 +79,30 @@ public sealed class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-    public Task<DeleteProductResponse> DeleteAsync(Guid productId)
+    public async Task<DeleteProductResponse> DeleteAsync(Guid productId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId);
+            if (foundProduct is null)
+            {
+                throw new HttpBadRequestException(ExceptionMessages.ProductDoesNotExist);
+            }
+
+            var deletedProduct = await _ProductRepository.DeleteAsync(foundProduct) ??
+                throw new HttpInternalServerErrorException("");
+
+            var productToReturn = DeleteProductResponse.FromProductToDTO(deletedProduct);
+
+            return productToReturn;
+        }
+        catch (HttpException)
+        {
+            throw;
+        }
+        catch
+        {
+            throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
+        }
     }
 }

@@ -30,6 +30,25 @@ public sealed class ProductRepository : IProductRepository
         }
     }
 
+    public async Task<Product?> GetActiveByIdAsync(Guid productId)
+    {
+        try
+        {
+            await using var context = new WakeProductsContext();
+
+            var foundProduct = await context.Products
+                .FirstOrDefaultAsync(p => 
+                    p.Id == productId &&
+                    p.IsActive == true);
+
+            return foundProduct;
+        }
+        catch
+        {
+            throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
+        }
+    }
+
     public async Task<Product?> GetActiveByNameAndPriceAsync(Product product)
     {
         try
@@ -67,13 +86,28 @@ public sealed class ProductRepository : IProductRepository
         }
     }
 
-    public Task<Product> UpdateAsync(Product product)
+    public Task<Product?> UpdateAsync(Product product)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Product> DeleteAsync(Guid productId)
+    // Exclui o produto apenas de forma lógica para manter histórico
+    public async Task<Product?> DeleteAsync(Product product)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await using var context = new WakeProductsContext();
+
+            product.Deactivate();
+
+            context.Products.Update(product);
+            await context.SaveChangesAsync();
+
+            return product;
+        }
+        catch
+        {
+            throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
+        }
     }
 }

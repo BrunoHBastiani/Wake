@@ -56,4 +56,23 @@ public class ProductsController : ControllerBase
             return StatusCode((int)HttpStatusCode.InternalServerError, ExceptionMessages.HttpInternalServerError);
         }
     }
+
+    [HttpDelete("{productId}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid productId)
+    {
+        try
+        {
+            var deletedProduct = await _productService.DeleteAsync(productId);
+
+            return StatusCode((int)HttpStatusCode.OK, deletedProduct);
+        }
+        catch (HttpException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Message);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, ExceptionMessages.HttpInternalServerError);
+        }
+    }
 }
