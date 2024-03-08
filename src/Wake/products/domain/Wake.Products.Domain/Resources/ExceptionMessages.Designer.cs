@@ -133,6 +133,24 @@ namespace Wake.Products.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro interno na exclusão do produto. Favor entrar em contato com o suporte para mais informações.
+        /// </summary>
+        public static string ProductNotDeleted {
+            get {
+                return ResourceManager.GetString("ProductNotDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro interno na atualização do produto. Favor entrar em contato com o suporte para mais informações.
+        /// </summary>
+        public static string ProductNotUpdated {
+            get {
+                return ResourceManager.GetString("ProductNotUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O preço do produto não pode ser negativo.
         /// </summary>
         public static string ProductPriceIsNegative {

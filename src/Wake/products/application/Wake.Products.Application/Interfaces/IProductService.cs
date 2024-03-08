@@ -7,6 +7,6 @@ public interface IProductService
     Task<GetProductsResponse> GetAsync(GetProductsRequet getProductRequest);
     Task<GetProductByIdResponse> GetByIdAsync(Guid productId);
     Task<CreateProductResponse> CreateAsync(CreateProductRequest createProductRequest);
-    Task<UpdateProductResponse> UpdateAsync(UpdateProductRequest updateProductRequest);
+    Task<UpdateProductResponse> UpdateAsync(UpdateProductRequest updateProductRequest, Guid productId);
     Task<DeleteProductResponse> DeleteAsync(Guid productId);
 }

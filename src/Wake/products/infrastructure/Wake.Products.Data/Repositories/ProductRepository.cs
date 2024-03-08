@@ -37,7 +37,7 @@ public sealed class ProductRepository : IProductRepository
             await using var context = new WakeProductsContext();
 
             var foundProduct = await context.Products
-                .FirstOrDefaultAsync(p => 
+                .FirstOrDefaultAsync(p =>
                     p.Id == productId &&
                     p.IsActive == true);
 
@@ -49,7 +49,7 @@ public sealed class ProductRepository : IProductRepository
         }
     }
 
-    public async Task<Product?> GetActiveByNameAndPriceAsync(Product product)
+    public async Task<Product?> GetActiveByNameAndPriceAsync(string name, decimal price)
     {
         try
         {
@@ -57,8 +57,8 @@ public sealed class ProductRepository : IProductRepository
 
             var foundProduct = await context.Products
                 .FirstOrDefaultAsync(p =>
-                    p.Name == product.Name &&
-                    p.Price == product.Price &&
+                    p.Name == name &&
+                    p.Price == price &&
                     p.IsActive == true);
 
             return foundProduct;
@@ -86,19 +86,11 @@ public sealed class ProductRepository : IProductRepository
         }
     }
 
-    public Task<Product?> UpdateAsync(Product product)
-    {
-        throw new NotImplementedException();
-    }
-
-    // Exclui o produto apenas de forma lógica para manter histórico
-    public async Task<Product?> DeleteAsync(Product product)
+    public async Task<Product?> UpdateAsync(Product product)
     {
         try
         {
             await using var context = new WakeProductsContext();
-
-            product.Deactivate();
 
             context.Products.Update(product);
             await context.SaveChangesAsync();

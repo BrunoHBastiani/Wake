@@ -49,18 +49,18 @@ public sealed class Product : BaseEntity
         if (name is not null)
         {
             AssertionConcern.NotNullOrWhiteSpace(name, ExceptionMessages.ProductNameIsNullorEmpty);
-            AssertionConcern.SizeLessThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
-            AssertionConcern.SizeGreaterThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
+            AssertionConcern.SizeGreaterThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
+            AssertionConcern.SizeLessThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
         }
 
         if (description is not null)
         {
-            AssertionConcern.SizeGreaterThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
+            AssertionConcern.SizeLessThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
         }
 
         if (price is not null)
         {
-            AssertionConcern.LessThan(price.Value, 0, ExceptionMessages.ProductPriceIsNegative);
+            AssertionConcern.GreaterThanOrEqual(price.Value, 0, ExceptionMessages.ProductPriceIsNegative);
         }
     }
 }

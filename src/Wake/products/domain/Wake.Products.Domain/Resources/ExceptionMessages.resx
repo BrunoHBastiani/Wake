@@ -141,6 +141,12 @@
   <data name="ProductNotCreated" xml:space="preserve">
     <value>Ocorreu um erro interno na criação do produto. Favor entrar em contato com o suporte para mais informações</value>
   </data>
+  <data name="ProductNotDeleted" xml:space="preserve">
+    <value>Ocorreu um erro interno na exclusão do produto. Favor entrar em contato com o suporte para mais informações</value>
+  </data>
+  <data name="ProductNotUpdated" xml:space="preserve">
+    <value>Ocorreu um erro interno na atualização do produto. Favor entrar em contato com o suporte para mais informações</value>
+  </data>
   <data name="ProductPriceIsNegative" xml:space="preserve">
     <value>O preço do produto não pode ser negativo</value>
   </data>

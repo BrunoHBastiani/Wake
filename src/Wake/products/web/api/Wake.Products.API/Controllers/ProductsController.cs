@@ -57,6 +57,25 @@ public class ProductsController : ControllerBase
         }
     }
 
+    [HttpPut("{productId}")]
+    public async Task<IActionResult> Update([FromRoute] Guid productId, [FromBody] UpdateProductRequest updateProductRequest)
+    {
+        try
+        {
+            var updatedProduct = await _productService.UpdateAsync(updateProductRequest, productId);
+
+            return StatusCode((int)HttpStatusCode.OK, updatedProduct);
+        }
+        catch (HttpException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Message);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, ExceptionMessages.HttpInternalServerError);
+        }
+    }
+
     [HttpDelete("{productId}")]
     public async Task<IActionResult> Delete([FromRoute] Guid productId)
     {

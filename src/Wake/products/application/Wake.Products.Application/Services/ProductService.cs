@@ -51,14 +51,14 @@ public sealed class ProductService : IProductService
                 createProductRequest.Description,
                 createProductRequest.Price);
 
-            var foundProduct = await _ProductRepository.GetActiveByNameAndPriceAsync(productToCreate);
+            var foundProduct = await _ProductRepository.GetActiveByNameAndPriceAsync(productToCreate.Name, productToCreate.Price);
             if (foundProduct is not null)
             {
                 throw new HttpBadRequestException(ExceptionMessages.ProductAlreadyExists);
             }
 
             var createdProduct = await _ProductRepository.CreateAsync(productToCreate) ??
-                throw new HttpInternalServerErrorException("");
+                throw new HttpInternalServerErrorException(ExceptionMessages.ProductNotCreated);
 
             var productToReturn = CreateProductResponse.FromProductToDTO(createdProduct);
 
@@ -74,9 +74,47 @@ public sealed class ProductService : IProductService
         }
     }
 
-    public Task<UpdateProductResponse> UpdateAsync(UpdateProductRequest updateProductRequest)
+    public async Task<UpdateProductResponse> UpdateAsync(UpdateProductRequest updateProductRequest, Guid productId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (updateProductRequest.Name is not null && updateProductRequest.Price is not null)
+            {
+                var existingProduct = await _ProductRepository
+                    .GetActiveByNameAndPriceAsync(updateProductRequest.Name, updateProductRequest.Price.Value);
+
+                if (existingProduct is not null)
+                {
+                    throw new HttpBadRequestException(ExceptionMessages.ProductAlreadyExists);
+                }
+            }
+
+            var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId);
+            if (foundProduct is null)
+            {
+                throw new HttpNotFoundException(ExceptionMessages.ProductDoesNotExist);
+            }
+
+            foundProduct.Update(
+                updateProductRequest.Name,
+                updateProductRequest.Description,
+                updateProductRequest.Price);
+
+            var updatedProduct = await _ProductRepository.UpdateAsync(foundProduct) ??
+                throw new HttpInternalServerErrorException(ExceptionMessages.ProductNotUpdated);
+
+            var productToReturn = UpdateProductResponse.FromProductToDTO(updatedProduct);
+
+            return productToReturn;
+        }
+        catch (HttpException)
+        {
+            throw;
+        }
+        catch
+        {
+            throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
+        }
     }
 
     public async Task<DeleteProductResponse> DeleteAsync(Guid productId)
@@ -86,10 +124,12 @@ public sealed class ProductService : IProductService
             var foundProduct = await _ProductRepository.GetActiveByIdAsync(productId);
             if (foundProduct is null)
             {
-                throw new HttpBadRequestException(ExceptionMessages.ProductDoesNotExist);
+                throw new HttpNotFoundException(ExceptionMessages.ProductDoesNotExist);
             }
 
-            var deletedProduct = await _ProductRepository.DeleteAsync(foundProduct) ??
+            foundProduct.Deactivate();
+
+            var deletedProduct = await _ProductRepository.UpdateAsync(foundProduct) ??
                 throw new HttpInternalServerErrorException("");
 
             var productToReturn = DeleteProductResponse.FromProductToDTO(deletedProduct);
