@@ -53,12 +53,12 @@ public sealed class Product : BaseEntity
             AssertionConcern.SizeGreaterThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
         }
 
-        if(description is not null)
+        if (description is not null)
         {
             AssertionConcern.SizeGreaterThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
         }
 
-        if(price is not null)
+        if (price is not null)
         {
             AssertionConcern.LessThan(price.Value, 0, ExceptionMessages.ProductPriceIsNegative);
         }

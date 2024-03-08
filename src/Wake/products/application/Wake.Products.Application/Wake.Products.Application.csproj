@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\infrastructure\Wake.Products.Data\Wake.Products.Data.csproj" />
+  </ItemGroup>
+
 </Project>
