@@ -32,7 +32,7 @@ public class ProductsControllerTests
         };
 
         productServiceMock.Setup(repo => repo.GetAsync(It.IsAny<GetProductsRequest>()))
-            .ReturnsAsync(new GetProductsResponse { Products = new List<GetProductResponse> { validProductResponse } });
+            .ReturnsAsync(new GetProductsResponse { Products = [validProductResponse] });
 
         var controller = new ProductsController(productServiceMock.Object);
 
@@ -51,7 +51,7 @@ public class ProductsControllerTests
         var productServiceMock = new Mock<IProductService>();
 
         productServiceMock.Setup(repo => repo.GetAsync(It.IsAny<GetProductsRequest>()))
-            .ReturnsAsync(new GetProductsResponse { Products = new List<GetProductResponse>() });
+            .ReturnsAsync(new GetProductsResponse { Products = [] });
 
         var controller = new ProductsController(productServiceMock.Object);
 

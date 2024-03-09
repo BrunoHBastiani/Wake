@@ -17,15 +17,15 @@ public class ProductRepositoryTests
             .UseInMemoryDatabase(databaseName: "test_wakedb")
             .Options;
 
-        using (var context = new WakeProductsContext(_options))
-        {
-            context.Products.AddRange(
-                new Product("Product 1", "Description 1", 100),
-                new Product("Product 2", "Description 2", 200),
-                new Product("Product 3", "Description 3", 300)
-            );
-            context.SaveChanges();
-        }
+        using var context = new WakeProductsContext(_options);
+
+        context.Products.AddRange(
+            new Product("Product 1", "Description 1", 100),
+            new Product("Product 2", "Description 2", 200),
+            new Product("Product 3", "Description 3", 300)
+        );
+
+        context.SaveChanges();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var productId = context.Products.First().Id;
 
         // Act
@@ -49,7 +49,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var nonExistingId = Guid.NewGuid();
 
         // Act
@@ -64,7 +64,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var productId = context.Products.First().Id;
 
         // Act
@@ -81,7 +81,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var nonExistingId = Guid.NewGuid();
 
         // Act
@@ -96,7 +96,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var existingProduct = context.Products.First();
 
         // Act
@@ -113,7 +113,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
 
         // Act
         var product = await repository.GetActiveByNameAndPriceAsync("NonExistingProduct", 999);
@@ -127,7 +127,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var newProduct = new Product("New Product", "New Description", 500);
 
         // Act
@@ -143,7 +143,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
 
         // Act & Assert
         await Assert.ThrowsAsync<HttpInternalServerErrorException>(async () => await repository.CreateAsync(null));
@@ -154,7 +154,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
         var existingProduct = context.Products.First();
         existingProduct.Update("Updated Product", null, null);
 
@@ -172,7 +172,7 @@ public class ProductRepositoryTests
     {
         // Arrange
         using var context = new WakeProductsContext(_options);
-        IProductRepository repository = new ProductRepository(context);
+        ProductRepository repository = new(context);
 
         // Act & Assert
         await Assert.ThrowsAsync<HttpInternalServerErrorException>(async () => await repository.UpdateAsync(null));
