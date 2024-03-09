@@ -5,13 +5,17 @@ using Wake.Products.Domain.Entities;
 namespace Wake.Products.Data;
 public sealed class WakeProductsContext : DbContext
 {
+    public WakeProductsContext() : base() { }
+
+    public WakeProductsContext(DbContextOptions<WakeProductsContext> options) : base(options) { }
+
     public DbSet<Product> Products { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (optionsBuilder.IsConfigured) return;
 
-        optionsBuilder.UseInMemoryDatabase("testewakedb");
+        optionsBuilder.UseInMemoryDatabase("wakedb");
     }
 
     /// <summary>

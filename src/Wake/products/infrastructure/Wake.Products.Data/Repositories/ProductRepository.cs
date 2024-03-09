@@ -10,13 +10,20 @@ using Wake.Products.Domain.Resources;
 namespace Wake.Products.Data.Repositories;
 public sealed class ProductRepository : IProductRepository
 {
+    private readonly WakeProductsContext _context;
+
+    public ProductRepository(WakeProductsContext context)
+    {
+        _context = context;
+    }
+
     public async Task<List<Product>?> GetAsync(GetProductsFilter getProductsFilter)
     {
         try
         {
-            await using var context = new WakeProductsContext();
+            //await using var context = new WakeProductsContext();
 
-            IQueryable<Product> productsQuery = context.Products;
+            IQueryable<Product> productsQuery = _context.Products;
 
             if (getProductsFilter.FieldNameToOrder.HasValue)
             {
@@ -72,9 +79,9 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            await using var context = new WakeProductsContext();
+            //await using var context = new WakeProductsContext();
 
-            var foundProduct = await context.Products.FirstOrDefaultAsync(p => p.Id == productId);
+            var foundProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
 
             return foundProduct;
         }
@@ -88,9 +95,9 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            await using var context = new WakeProductsContext();
+            //await using var context = new WakeProductsContext();
 
-            var foundProduct = await context.Products
+            var foundProduct = await _context.Products
                 .FirstOrDefaultAsync(p =>
                     p.Id == productId &&
                     p.IsActive == true);
@@ -107,9 +114,9 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            await using var context = new WakeProductsContext();
+            //await using var context = new WakeProductsContext();
 
-            var foundProduct = await context.Products
+            var foundProduct = await _context.Products
                 .FirstOrDefaultAsync(p =>
                     p.Name == name &&
                     p.Price == price &&
@@ -127,10 +134,10 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            await using var context = new WakeProductsContext();
+            //await using var context = new WakeProductsContext();
 
-            await context.Products.AddAsync(product);
-            await context.SaveChangesAsync();
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
 
             return product;
         }
@@ -144,10 +151,10 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            await using var context = new WakeProductsContext();
+            //await using var context = new WakeProductsContext();
 
-            context.Products.Update(product);
-            await context.SaveChangesAsync();
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
 
             return product;
         }

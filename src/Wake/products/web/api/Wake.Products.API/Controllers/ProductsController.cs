@@ -3,6 +3,7 @@
 using System.Net;
 
 using Wake.Products.Application.Dtos.Requests;
+using Wake.Products.Application.Dtos.Responses;
 using Wake.Products.Application.Interfaces;
 using Wake.Products.Domain.Exceptions;
 using Wake.Products.Domain.Resources;
@@ -19,7 +20,19 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
+    /// <summary>
+    /// Retorna uma lista de produtos de acordo com os critérios especificados.
+    /// </summary>
+    /// <param name="getProductsRequest">Filtros de consulta para produtos.</param>
+    /// <response code="200">Retorna uma lista de produtos.</response>
+    /// <response code="204">Retorna uma resposta vazia quando nenhum produto é encontrado.</response>
+    /// <response code="400">Se a solicitação não for válida.</response>
+    /// <response code="500">Se ocorrer um erro interno no servidor.</response>
     [HttpGet()]
+    [ProducesResponseType(typeof(GetProductsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Get([FromQuery] GetProductsRequest getProductsRequet)
     {
         try
@@ -41,7 +54,19 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retorna um produto com o ID especificado.
+    /// </summary>
+    /// <param name="productId">ID do produto a ser retornado.</param>
+    /// <response code="200">Retorna o produto solicitado.</response>
+    /// <response code="400">Se a solicitação não for válida.</response>
+    /// <response code="404">Se o produto não for encontrado.</response>
+    /// <response code="500">Se ocorrer um erro interno no servidor.</response>
     [HttpGet("{productId}")]
+    [ProducesResponseType(typeof(GetProductByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> GetById([FromRoute] Guid productId)
     {
         try
@@ -60,7 +85,17 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Cria um novo produto com base nos dados fornecidos.
+    /// </summary>
+    /// <param name="createProductRequest">Dados do produto a serem criados.</param>
+    /// <response code="201">Retorna o produto recém-criado.</response>
+    /// <response code="400">Se a solicitação não for válida.</response>
+    /// <response code="500">Se ocorrer um erro interno no servidor.</response>
     [HttpPost]
+    [ProducesResponseType(typeof(CreateProductResponse), (int)HttpStatusCode.Created)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Create([FromBody] CreateProductRequest createProductRequest)
     {
         try
@@ -79,7 +114,20 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Atualiza um produto existente com base nos dados fornecidos.
+    /// </summary>
+    /// <param name="productId">ID do produto a ser atualizado.</param>
+    /// <param name="updateProductRequest">Dados do produto a serem atualizados.</param>
+    /// <response code="200">Retorna o produto atualizado.</response>
+    /// <response code="400">Se a solicitação não for válida.</response>
+    /// <response code="404">Se o produto não for encontrado.</response>
+    /// <response code="500">Se ocorrer um erro interno no servidor.</response>
     [HttpPut("{productId}")]
+    [ProducesResponseType(typeof(UpdateProductResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Update([FromRoute] Guid productId, [FromBody] UpdateProductRequest updateProductRequest)
     {
         try
@@ -98,7 +146,19 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Exclui um produto com o ID especificado.
+    /// </summary>
+    /// <param name="productId">ID do produto a ser excluído.</param>
+    /// <response code="200">Retorna o produto excluído.</response>
+    /// <response code="400">Se a solicitação não for válida.</response>
+    /// <response code="404">Se o produto não for encontrado.</response>
+    /// <response code="500">Se ocorrer um erro interno no servidor.</response>
     [HttpDelete("{productId}")]
+    [ProducesResponseType(typeof(DeleteProductResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Delete([FromRoute] Guid productId)
     {
         try

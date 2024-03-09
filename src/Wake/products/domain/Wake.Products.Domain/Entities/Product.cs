@@ -32,6 +32,8 @@ public sealed class Product : BaseEntity
 
     public void Deactivate()
     {
+        AssertionConcern.True(IsActive, ExceptionMessages.ProductIsAlreadyDeactivated);
+
         IsActive = false;
     }
 
