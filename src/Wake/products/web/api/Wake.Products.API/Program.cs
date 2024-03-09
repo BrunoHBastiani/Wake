@@ -1,12 +1,12 @@
 using Wake.Products.API;
 
-internal class Program
+internal sealed class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddApiInitializers(builder.Configuration);
+        builder.Services.AddApiInitializers();
 
         var app = builder.Build();
 

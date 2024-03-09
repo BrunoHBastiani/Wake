@@ -129,6 +129,10 @@
   <data name="ProductDoesNotExist" xml:space="preserve">
     <value>O produto informado não existe</value>
   </data>
+  <data name="ProductFieldNameIsInvalid" xml:space="preserve">
+    <value>O nome do campo informado para busca é inválido. As opções válidas são as seguintes:
+Id, Name, Description, Price, CreatedAt, UpdatedAt</value>
+  </data>
   <data name="ProductNameBelowMinimumCharacterLimit" xml:space="preserve">
     <value>O nome do produto precisa ter no mínimo dois caracteres</value>
   </data>
@@ -146,6 +150,10 @@
   </data>
   <data name="ProductNotUpdated" xml:space="preserve">
     <value>Ocorreu um erro interno na atualização do produto. Favor entrar em contato com o suporte para mais informações</value>
+  </data>
+  <data name="ProductOrderIsInvalid" xml:space="preserve">
+    <value>A ordenação informada para busca é inválida. As opções válidas são as seguintes:
+Asc, Desc</value>
   </data>
   <data name="ProductPriceIsNegative" xml:space="preserve">
     <value>O preço do produto não pode ser negativo</value>

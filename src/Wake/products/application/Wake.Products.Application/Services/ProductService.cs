@@ -16,19 +16,37 @@ public sealed class ProductService : IProductService
         _ProductRepository = productRepository;
     }
 
-    public Task<GetProductsResponse> GetAsync(GetProductsRequet getProductRequest)
+    public async Task<GetProductsResponse> GetAsync(GetProductsRequest getProductRequest)
     {
-        throw new NotImplementedException();
+        try
+        {
+            getProductRequest.Validate();
+
+            var foundProducts = await _ProductRepository.GetAsync(getProductRequest.FromDTOToFilter()) ??
+                throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
+
+            var productsToReturn = GetProductsResponse.FromProductsToDTO(foundProducts);
+
+            return productsToReturn;
+        }
+        catch (HttpException)
+        {
+            throw;
+        }
+        catch
+        {
+            throw new HttpInternalServerErrorException(ExceptionMessages.HttpInternalServerError);
+        }
     }
 
     public async Task<GetProductByIdResponse> GetByIdAsync(Guid productId)
     {
         try
         {
-            var productFound = await _ProductRepository.GetByIdAsync(productId) ??
+            var foundProduct = await _ProductRepository.GetByIdAsync(productId) ??
                 throw new HttpBadRequestException(ExceptionMessages.ProductDoesNotExist);
 
-            var productToReturn = GetProductByIdResponse.FromProductToDTO(productFound);
+            var productToReturn = GetProductByIdResponse.FromProductToDTO(foundProduct);
 
             return productToReturn;
         }

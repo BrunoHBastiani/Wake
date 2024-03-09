@@ -19,6 +19,28 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
+    [HttpGet()]
+    public async Task<IActionResult> Get([FromQuery] GetProductsRequest getProductsRequet)
+    {
+        try
+        {
+            var foundProducts = await _productService.GetAsync(getProductsRequet);
+
+            if (foundProducts.Products is not null && !foundProducts.Products.Any())
+                return StatusCode((int)HttpStatusCode.NoContent, foundProducts);
+
+            return StatusCode((int)HttpStatusCode.OK, foundProducts);
+        }
+        catch (HttpException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Message);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, ExceptionMessages.HttpInternalServerError);
+        }
+    }
+
     [HttpGet("{productId}")]
     public async Task<IActionResult> GetById([FromRoute] Guid productId)
     {

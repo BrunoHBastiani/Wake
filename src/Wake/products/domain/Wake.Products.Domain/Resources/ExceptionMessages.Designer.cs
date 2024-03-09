@@ -97,6 +97,16 @@ namespace Wake.Products.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O nome do campo informado para busca é inválido. As opções válidas são as seguintes:
+        ///Id, Name, Description, Price, CreatedAt, UpdatedAt.
+        /// </summary>
+        public static string ProductFieldNameIsInvalid {
+            get {
+                return ResourceManager.GetString("ProductFieldNameIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O nome do produto precisa ter no mínimo dois caracteres.
         /// </summary>
         public static string ProductNameBelowMinimumCharacterLimit {
@@ -147,6 +157,16 @@ namespace Wake.Products.Domain.Resources {
         public static string ProductNotUpdated {
             get {
                 return ResourceManager.GetString("ProductNotUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A ordenação informada para busca é inválida. As opções válidas são as seguintes:
+        ///Asc, Desc.
+        /// </summary>
+        public static string ProductOrderIsInvalid {
+            get {
+                return ResourceManager.GetString("ProductOrderIsInvalid", resourceCulture);
             }
         }
         
