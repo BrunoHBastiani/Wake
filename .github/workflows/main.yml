@@ -20,7 +20,7 @@ jobs:
         dotnet-version: '8.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore ./Wake.sln
+      run: dotnet restore ./src/Wake/Wake.sln
     
     - name: Build
       run: dotnet build --configuration Release
