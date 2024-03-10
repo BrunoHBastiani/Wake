@@ -127,8 +127,8 @@ public class ProductServiceTests
     }
 
     [Theory]
-    [InlineData(null, "Description", 10.1, ExceptionMessages.ProductNameIsNullorEmpty)]
-    [InlineData("", "Description", 9.24, ExceptionMessages.ProductNameIsNullorEmpty)]
+    [InlineData(null, "Description", 10.1, ExceptionMessages.ProductNameIsNullOrEmpty)]
+    [InlineData("", "Description", 9.24, ExceptionMessages.ProductNameIsNullOrEmpty)]
     [InlineData("P", "Description", 8.10, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
     [InlineData("Product Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
     [InlineData("Product Name", "Description", -10.5, ExceptionMessages.ProductPriceIsNegative)]
@@ -186,7 +186,7 @@ public class ProductServiceTests
     }
 
     [Theory]
-    [InlineData("", "Description", 7.7, ExceptionMessages.ProductNameIsNullorEmpty)]
+    [InlineData("", "Description", 7.7, ExceptionMessages.ProductNameIsNullOrEmpty)]
     [InlineData("P", "Description", 2.3, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
     [InlineData("Updated Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
     [InlineData("Updated Name", "Updated Description", -20.1, ExceptionMessages.ProductPriceIsNegative)]

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./Products/Infrastructure/Wake.Products.Data
+      dockerfile: Dockerfile
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: wakedb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

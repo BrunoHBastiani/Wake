@@ -26,8 +26,8 @@ public sealed class ProductTests
     }
 
     [Theory]
-    [InlineData(null, "Description", 10.1, ExceptionMessages.ProductNameIsNullorEmpty)]
-    [InlineData("", "Description", 9.24, ExceptionMessages.ProductNameIsNullorEmpty)]
+    [InlineData(null, "Description", 10.1, ExceptionMessages.ProductNameIsNullOrEmpty)]
+    [InlineData("", "Description", 9.24, ExceptionMessages.ProductNameIsNullOrEmpty)]
     [InlineData("P", "Description", 8.10, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
     [InlineData("Product Name", TestConfig.DescriptionWithMoreThan200characters, 1.0, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
     [InlineData("Product Name", "Description", -10.5, ExceptionMessages.ProductPriceIsNegative)]
@@ -57,7 +57,7 @@ public sealed class ProductTests
     }
 
     [Theory]
-    [InlineData("", "Description", 7.7, ExceptionMessages.ProductNameIsNullorEmpty)]
+    [InlineData("", "Description", 7.7, ExceptionMessages.ProductNameIsNullOrEmpty)]
     [InlineData("P", "Description", 2.3, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
     [InlineData("Updated Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
     [InlineData("Updated Name", "Updated Description", -20.1, ExceptionMessages.ProductPriceIsNegative)]
@@ -85,7 +85,7 @@ public sealed class ProductTests
     }
 
     [Fact]
-    public void DeactivateProductThatIsAlreadyDeactivated_ThrowsException()
+    public void DeactivateProduct_ThatIsAlreadyDeactivated_ThrowsException()
     {
         // Arrange
         var product = new Product("Initial Name", "Initial Description", 8.1m);
@@ -96,44 +96,5 @@ public sealed class ProductTests
         //Tenta realizar uma segunda tentativa para testar o ato de desativar um produto que já está desativado
         var exception = Assert.Throws<HttpBadRequestException>(product.Deactivate);
         Assert.Equal(ExceptionMessages.ProductIsAlreadyDeactivated, exception.Message);
-    }
-
-    [Theory]
-    [InlineData(null, "Description", 10)]
-    [InlineData("", "Description", 10)]
-    [InlineData("N", "Description", 10)]
-    [InlineData(TestConfig.NameWithMoreThan100characters, "Description", 10)]
-    [InlineData("Name", TestConfig.DescriptionWithMoreThan200characters, 10)]
-    [InlineData("Name", "Description", -10)]
-    public void ValidateCreation_ThrowsException_ForInvalidInput(string name, string description, decimal price)
-    {
-        // Arrange & Act & Assert
-        Assert.Throws<HttpBadRequestException>(() => Product.ValidateCreation(name, description, price));
-    }
-
-    [Fact]
-    public void ValidateCreation_DoesNotThrowException_ForValidInput()
-    {
-        // Arrange & Act & Assert
-        Product.ValidateCreation("Valid Name", "Valid Description", 10);
-    }
-
-    [Theory]
-    [InlineData("", "Description", 10)]
-    [InlineData("N", "Description", 10)]
-    [InlineData(TestConfig.NameWithMoreThan100characters, "Description", 10)]
-    [InlineData("Name", TestConfig.DescriptionWithMoreThan200characters, 10)]
-    [InlineData("Name", "Description", -10)]
-    public void ValidateUpdate_ThrowsException_ForInvalidInput(string name, string description, decimal price)
-    {
-        // Arrange & Act & Assert
-        Assert.Throws<HttpBadRequestException>(() => Product.ValidateUpdate(name, description, price));
-    }
-
-    [Fact]
-    public void ValidateUpdate_DoesNotThrowException_ForValidInput()
-    {
-        // Arrange & Act & Assert
-        Product.ValidateUpdate("Valid Name", "Valid Description", 10);
     }
 }

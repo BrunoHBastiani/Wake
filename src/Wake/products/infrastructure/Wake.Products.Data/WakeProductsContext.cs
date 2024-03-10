@@ -1,11 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
+using Wake.Products.Data.Helpers;
 using Wake.Products.Domain.Entities;
 
 namespace Wake.Products.Data;
 public sealed class WakeProductsContext : DbContext
 {
-    public WakeProductsContext() : base() { }
+    private readonly ConnectionDB? _connection;
+    public WakeProductsContext(IOptions<ConnectionDB> connection) : base() 
+    {
+        _connection = connection.Value;
+    }
 
     public WakeProductsContext(DbContextOptions<WakeProductsContext> options) : base(options) { }
 
@@ -15,7 +21,7 @@ public sealed class WakeProductsContext : DbContext
     {
         if (optionsBuilder.IsConfigured) return;
 
-        optionsBuilder.UseInMemoryDatabase("wakedb");
+        optionsBuilder.UseNpgsql(_connection.ConnectionString);
     }
 
     /// <summary>

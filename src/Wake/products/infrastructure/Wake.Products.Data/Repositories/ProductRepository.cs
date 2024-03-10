@@ -42,7 +42,7 @@ public sealed class ProductRepository : IProductRepository
 
             if (getProductsFilter.Name is not null)
             {
-                productsQuery = productsQuery.Where(p => p.Name == getProductsFilter.Name);
+                productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(getProductsFilter.Name.ToLower()));
             }
 
             if (getProductsFilter.MinPrice is not null)

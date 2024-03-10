@@ -44,7 +44,7 @@ public class BaseEntityTests
     {
         // Arrange
         var entity = new BaseEntity();
-        var expectedCreatedAt = DateTime.Now;
+        var expectedCreatedAt = DateTime.UtcNow;
 
         // Act
         entity.RegisterCreation();
@@ -61,7 +61,7 @@ public class BaseEntityTests
     {
         // Arrange
         var entity = new BaseEntity();
-        var expectedUpdatedAt = DateTime.Now;
+        var expectedUpdatedAt = DateTime.UtcNow;
 
         // Act
         entity.RegisterUpdate();

@@ -23,7 +23,7 @@ public static class ExceptionMessages
     public const string ProductNameExceedsMaximumCharacterLimit =
         "O nome do produto deve ter no máximo cem caracteres";
 
-    public const string ProductNameIsNullorEmpty =
+    public const string ProductNameIsNullOrEmpty =
         "O nome do produto é obrigatório";
 
     public const string ProductNotCreated =

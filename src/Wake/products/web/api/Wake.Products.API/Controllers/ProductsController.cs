@@ -33,11 +33,11 @@ public class ProductsController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    public async Task<IActionResult> Get([FromQuery] GetProductsRequest getProductsRequet)
+    public async Task<IActionResult> Get([FromQuery] GetProductsRequest getProductsRequest)
     {
         try
         {
-            var foundProducts = await _productService.GetAsync(getProductsRequet);
+            var foundProducts = await _productService.GetAsync(getProductsRequest);
 
             if (foundProducts.Products is not null && !foundProducts.Products.Any())
                 return StatusCode((int)HttpStatusCode.NoContent, foundProducts);

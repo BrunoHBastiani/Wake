@@ -37,32 +37,34 @@ public sealed class Product : BaseEntity
         IsActive = false;
     }
 
-    public static void ValidateCreation(string name, string description, decimal price)
+    public void ValidateCreation(string name, string description, decimal price)
     {
-        AssertionConcern.NotNullOrWhiteSpace(name, ExceptionMessages.ProductNameIsNullorEmpty);
-        AssertionConcern.SizeGreaterThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
-        AssertionConcern.SizeLessThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
-        AssertionConcern.SizeLessThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
-        AssertionConcern.GreaterThanOrEqual(price, 0, ExceptionMessages.ProductPriceIsNegative);
+        ValidateName(name);
+        ValidateDescription(description);
+        ValidatePrice(price);
     }
 
-    public static void ValidateUpdate(string? name, string? description, decimal? price)
+    public void ValidateUpdate(string? name, string? description, decimal? price)
     {
-        if (name is not null)
-        {
-            AssertionConcern.NotNullOrWhiteSpace(name, ExceptionMessages.ProductNameIsNullorEmpty);
-            AssertionConcern.SizeGreaterThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
-            AssertionConcern.SizeLessThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
-        }
+        if (name is not null) ValidateName(name);  
+        if (description is not null) ValidateDescription(description);
+        if (price is not null) ValidatePrice(price.Value);
+    }
 
-        if (description is not null)
-        {
-            AssertionConcern.SizeLessThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
-        }
+    private void ValidateName(string name)
+    {
+        AssertionConcern.NotNullOrWhiteSpace(name, ExceptionMessages.ProductNameIsNullOrEmpty);
+        AssertionConcern.SizeGreaterThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
+        AssertionConcern.SizeLessThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
+    }
+    
+    private void ValidateDescription(string description)
+    {
+        AssertionConcern.SizeLessThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);
+    }
 
-        if (price is not null)
-        {
-            AssertionConcern.GreaterThanOrEqual(price.Value, 0, ExceptionMessages.ProductPriceIsNegative);
-        }
+    private void ValidatePrice(decimal price)
+    {
+        AssertionConcern.GreaterThanOrEqual(price, 0, ExceptionMessages.ProductPriceIsNegative);
     }
 }

@@ -17,17 +17,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F12B7281
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{68F0CDDC-E3E0-4DBA-9E24-BC5179523B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wake.Products.Application", "products\application\Wake.Products.Application\Wake.Products.Application.csproj", "{6F4C28D7-7C57-419F-A802-450ACC539D61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.Application", "products\application\Wake.Products.Application\Wake.Products.Application.csproj", "{6F4C28D7-7C57-419F-A802-450ACC539D61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wake.Products.Domain", "products\domain\Wake.Products.Domain\Wake.Products.Domain.csproj", "{01C582EA-463D-4EF8-8511-91B7E056FBA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.Domain", "products\domain\Wake.Products.Domain\Wake.Products.Domain.csproj", "{01C582EA-463D-4EF8-8511-91B7E056FBA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wake.Products.Data", "products\infrastructure\Wake.Products.Data\Wake.Products.Data.csproj", "{665F0516-F652-482D-8B57-04924ED685D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.Data", "products\infrastructure\Wake.Products.Data\Wake.Products.Data.csproj", "{665F0516-F652-482D-8B57-04924ED685D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wake.Products.UnitTests", "products\tests\Wake.Products.UnitTests\Wake.Products.UnitTests.csproj", "{1678FAB6-DE38-46FA-8896-B6146876F435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.UnitTests", "products\tests\Wake.Products.UnitTests\Wake.Products.UnitTests.csproj", "{1678FAB6-DE38-46FA-8896-B6146876F435}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wake.Products.IntegrationTests", "products\tests\Wake.Products.IntegrationTests\Wake.Products.IntegrationTests.csproj", "{8834FEB8-CAFA-4841-9ABC-0D186E97631C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.IntegrationTests", "products\tests\Wake.Products.IntegrationTests\Wake.Products.IntegrationTests.csproj", "{8834FEB8-CAFA-4841-9ABC-0D186E97631C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wake.Products.API", "products\web\api\Wake.Products.API\Wake.Products.API.csproj", "{D5C8C9EC-878D-4DAA-87D4-E1FD9401B940}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.API", "products\web\api\Wake.Products.API\Wake.Products.API.csproj", "{D5C8C9EC-878D-4DAA-87D4-E1FD9401B940}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{E1FAE20A-384B-483D-B38F-8F1C3F1F516A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
