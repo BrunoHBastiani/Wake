@@ -12,7 +12,7 @@ using Wake.Products.Data;
 namespace Wake.Products.Data.Migrations
 {
     [DbContext(typeof(WakeProductsContext))]
-    [Migration("20240310195240_InitialCreate")]
+    [Migration("20240310202057_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,8 +32,10 @@ namespace Wake.Products.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -58,8 +60,10 @@ namespace Wake.Products.Data.Migrations
                         .HasColumnName("quantity");
 
                     b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
+                        .HasColumnName("updated_at")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -68,7 +72,7 @@ namespace Wake.Products.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("504391c6-c05f-4486-9f71-c7179388924b"),
+                            Id = new Guid("660c862e-96bb-43a9-a1ed-1485a071868a"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Televisão inteligente de alta definição 4K, com acesso a aplicativos de streaming",
                             IsActive = true,
@@ -79,7 +83,7 @@ namespace Wake.Products.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d0647a40-0e34-4964-afad-49a8e5e4cd0a"),
+                            Id = new Guid("f7b5972d-0369-4a48-b672-859e18e155c2"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Notebook de última geração com processador Intel Core i7, 16GB de RAM e SSD de 512GB",
                             IsActive = true,
@@ -90,7 +94,7 @@ namespace Wake.Products.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2189e256-efbc-4ba4-a92a-76e8f4bea5dd"),
+                            Id = new Guid("e1a2e648-7c55-4bdd-833d-6a6bbc054843"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Smartphone premium com câmera de alta resolução, tela AMOLED de 6.2 polegadas e 128GB de armazenamento",
                             IsActive = true,
@@ -101,7 +105,7 @@ namespace Wake.Products.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3c197895-c7a9-4e06-9ef6-71b2ba71a961"),
+                            Id = new Guid("e09ed81c-9e1c-4597-84d0-602f7b17cd7c"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Forno elétrico com capacidade para 45 litros, timer programável e função dourar",
                             IsActive = true,
@@ -112,7 +116,7 @@ namespace Wake.Products.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("856d2dc9-a93f-4b59-83d3-8b28cc88b9fe"),
+                            Id = new Guid("0fdf27c7-2068-4645-a803-a1211a60ee34"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Cafeteira automática que prepara café expresso cremoso com apenas um toque",
                             IsActive = true,

@@ -17,8 +17,8 @@ public sealed class ProductMapping : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Price).HasColumnName("price").IsRequired();
         builder.Property(x => x.Quantity).HasColumnName("quantity").IsRequired();
         builder.Property(x => x.IsActive).HasColumnName("is_active").IsRequired();
-        builder.Property(x => x.CreatedAt).HasColumnName("created_at").IsRequired();
-        builder.Property(x => x.UpdatedAt).HasColumnName("updated_at").IsRequired();
+        builder.Property(x => x.CreatedAt).HasColumnName("created_at").IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
+        builder.Property(x => x.UpdatedAt).HasColumnName("updated_at").IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
 
         builder.HasData(
             new Product("Televisão Smart 4K", "Televisão inteligente de alta definição 4K, com acesso a aplicativos de streaming", 1999.99m, 2),
