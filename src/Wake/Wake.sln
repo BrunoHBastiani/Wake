@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.IntegrationTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wake.Products.API", "products\web\api\Wake.Products.API\Wake.Products.API.csproj", "{D5C8C9EC-878D-4DAA-87D4-E1FD9401B940}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{E1FAE20A-384B-483D-B38F-8F1C3F1F516A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerStarter", "DockerStarter", "{E1FAE20A-384B-483D-B38F-8F1C3F1F516A}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection

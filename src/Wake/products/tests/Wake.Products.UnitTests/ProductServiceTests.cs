@@ -20,7 +20,7 @@ public class ProductServiceTests
         var getProductRequest = new GetProductsRequest();
         var mockRepository = new Mock<IProductRepository>();
 
-        var validProduct = new Product("Product Name", "Product Description", 10.7m);
+        var validProduct = new Product("Product Name", "Product Description", 10.7m, 2);
 
         mockRepository.Setup(repo => repo.GetAsync(It.IsAny<GetProductsFilter>()))
             .ReturnsAsync([validProduct]);
@@ -63,7 +63,7 @@ public class ProductServiceTests
 
         var mockRepository = new Mock<IProductRepository>();
 
-        var validProduct = new Product("Product Name", "Product Description", 10.7m);
+        var validProduct = new Product("Product Name", "Product Description", 10.7m, 3);
 
         mockRepository.Setup(repo => repo.GetAsync(It.IsAny<GetProductsFilter>()))
             .ReturnsAsync([validProduct]);
@@ -82,7 +82,7 @@ public class ProductServiceTests
         var productId = Guid.NewGuid();
         var mockRepository = new Mock<IProductRepository>();
 
-        var validProduct = new Product("Product Name", "Product Description", 10.7m);
+        var validProduct = new Product("Product Name", "Product Description", 10.7m, 3);
 
         mockRepository.Setup(repo => repo.GetByIdAsync(productId))
             .ReturnsAsync(validProduct);
@@ -112,7 +112,7 @@ public class ProductServiceTests
         mockRepository.Setup(repo => repo.GetActiveByNameAndPriceAsync(It.IsAny<string>(), It.IsAny<decimal>()))
             .ReturnsAsync((Product?)null);
 
-        var validProduct = new Product("Product Name", "Product Description", 10.7m);
+        var validProduct = new Product("Product Name", "Product Description", 10.7m, 3);
 
         mockRepository.Setup(repo => repo.CreateAsync(It.IsAny<Product>()))
             .ReturnsAsync(validProduct);
@@ -127,12 +127,13 @@ public class ProductServiceTests
     }
 
     [Theory]
-    [InlineData(null, "Description", 10.1, ExceptionMessages.ProductNameIsNullOrEmpty)]
-    [InlineData("", "Description", 9.24, ExceptionMessages.ProductNameIsNullOrEmpty)]
-    [InlineData("P", "Description", 8.10, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
-    [InlineData("Product Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
-    [InlineData("Product Name", "Description", -10.5, ExceptionMessages.ProductPriceIsNegative)]
-    public async Task CreateAsync_InvalidRequest_ThrowsException(string name, string description, decimal price, string expectedErrorMessage)
+    [InlineData(null, "Description", 10.1, 3, ExceptionMessages.ProductNameIsNullOrEmpty)]
+    [InlineData("", "Description", 7.7, 3, ExceptionMessages.ProductNameIsNullOrEmpty)]
+    [InlineData("P", "Description", 2.3, 3, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
+    [InlineData("Updated Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, 3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
+    [InlineData("Updated Name", "Updated Description", -20.1, 3, ExceptionMessages.ProductPriceIsNegative)]
+    [InlineData("Updated Name", "Updated Description", 20.1, -3, ExceptionMessages.ProductQuantityIsNegative)]
+    public async Task CreateAsync_InvalidRequest_ThrowsException(string name, string description, decimal price, int quantity, string expectedErrorMessage)
     {
         // Arrange
         var createProductRequest = new CreateProductRequest
@@ -140,6 +141,7 @@ public class ProductServiceTests
             Name = name,
             Description = description,
             Price = price,
+            Quantity = quantity,
         };
 
         var mockRepository = new Mock<IProductRepository>();
@@ -147,7 +149,7 @@ public class ProductServiceTests
         mockRepository.Setup(repo => repo.GetActiveByNameAndPriceAsync(It.IsAny<string>(), It.IsAny<decimal>()))
             .ReturnsAsync((Product?)null);
 
-        var validProduct = new Product("Product Name", "Product Description", 10.7m);
+        var validProduct = new Product("Product Name", "Product Description", 10.7m, 3);
 
         mockRepository.Setup(repo => repo.CreateAsync(It.IsAny<Product>()))
             .ReturnsAsync(validProduct);
@@ -171,10 +173,10 @@ public class ProductServiceTests
             .ReturnsAsync((Product?)null);
 
         mockRepository.Setup(repo => repo.GetActiveByIdAsync(productId))
-            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m));
+            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m, 3));
 
         mockRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Product>()))
-            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m));
+            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m, 3));
 
         var service = new ProductService(mockRepository.Object);
 
@@ -186,17 +188,19 @@ public class ProductServiceTests
     }
 
     [Theory]
-    [InlineData("", "Description", 7.7, ExceptionMessages.ProductNameIsNullOrEmpty)]
-    [InlineData("P", "Description", 2.3, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
-    [InlineData("Updated Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
-    [InlineData("Updated Name", "Updated Description", -20.1, ExceptionMessages.ProductPriceIsNegative)]
-    public async Task UpdateAsync_InvalidRequest_ThrowsException(string newName, string newDescription, decimal newPrice, string expectedErrorMessage)
+    [InlineData("", "Description", 7.7, 3, ExceptionMessages.ProductNameIsNullOrEmpty)]
+    [InlineData("P", "Description", 2.3, 3, ExceptionMessages.ProductNameBelowMinimumCharacterLimit)]
+    [InlineData("Updated Name", TestConfig.DescriptionWithMoreThan200characters, 1.3, 3, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit)]
+    [InlineData("Updated Name", "Updated Description", -20.1, 3, ExceptionMessages.ProductPriceIsNegative)]
+    [InlineData("Updated Name", "Updated Description", 20.1, -3, ExceptionMessages.ProductQuantityIsNegative)]
+    public async Task UpdateAsync_InvalidRequest_ThrowsException(string newName, string newDescription, decimal newPrice, int newQuantity, string expectedErrorMessage)
     {
         // Arrange
         var updateProductRequest = new UpdateProductRequest
         {
             Name = newName,
             Description = newDescription,
+            Quantity = newQuantity,
             Price = newPrice,
         };
 
@@ -207,10 +211,10 @@ public class ProductServiceTests
             .ReturnsAsync((Product?)null);
 
         mockRepository.Setup(repo => repo.GetActiveByIdAsync(productId))
-            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m));
+            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m, 3));
 
         mockRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Product>()))
-            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m));
+            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m, 3));
 
         var service = new ProductService(mockRepository.Object);
 
@@ -227,10 +231,10 @@ public class ProductServiceTests
         var mockRepository = new Mock<IProductRepository>();
 
         mockRepository.Setup(repo => repo.GetActiveByIdAsync(productId))
-            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m));
+            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m, 3));
 
         mockRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Product>()))
-            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m));
+            .ReturnsAsync(new Product("Product Name", "Product Description", 10.7m, 3));
 
         var service = new ProductService(mockRepository.Object);
 

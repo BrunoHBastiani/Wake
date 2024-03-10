@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   db:
-    build:
-      context: ./Products/Infrastructure/Wake.Products.Data
-      dockerfile: Dockerfile
+    image: postgres:latest
     container_name: postgres-db
     ports:
       - "5432:5432"

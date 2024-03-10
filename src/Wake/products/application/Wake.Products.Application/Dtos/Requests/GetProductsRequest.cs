@@ -9,7 +9,6 @@ public sealed class GetProductsRequest
     public string? Name { get; set; }
     public ProductFieldsEnum? FieldNameToOrder { get; set; }
     public OrderEnum? Order { get; set; }
-
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
     public decimal? ExactValue { get; set; }

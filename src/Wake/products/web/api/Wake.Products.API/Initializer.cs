@@ -3,7 +3,6 @@
 using Wake.Products.Application.Interfaces;
 using Wake.Products.Application.Services;
 using Wake.Products.Data;
-using Wake.Products.Data.Helpers;
 using Wake.Products.Data.Interfaces;
 using Wake.Products.Data.Repositories;
 
@@ -12,13 +11,11 @@ namespace Wake.Products.API;
 public static class Initializer
 {
     public static IServiceCollection AddApiInitializers(
-        this IServiceCollection services, IConfiguration configuration)
+        this IServiceCollection services)
     {
         services.AddScoped<WakeProductsContext>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IProductRepository, ProductRepository>();
-
-        services.Configure<ConnectionDB>(configuration.GetSection(nameof(ConnectionDB)));
 
         //Apresenta os enums a partir de sua descrição no swagger
         services

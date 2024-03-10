@@ -7,23 +7,25 @@ public sealed class Product : BaseEntity
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
+    public int Quantity { get; private set; }
     public bool IsActive { get; private set; }
 
     private Product() { }
 
-    public Product(string name, string description, decimal price) : base()
+    public Product(string name, string description, decimal price, int quantity) : base()
     {
-        ValidateCreation(name, description, price);
+        ValidateCreation(name, description, price, quantity);
 
         Name = name;
         Description = description;
         Price = price;
+        Quantity = quantity;
         IsActive = true;
     }
 
-    public void Update(string? name, string? description, decimal? price)
+    public void Update(string? name, string? description, decimal? price, int? quantity)
     {
-        ValidateUpdate(name, description, price);
+        ValidateUpdate(name, description, price, quantity);
 
         if (name is not null) Name = name;
         if (description is not null) Description = description;
@@ -37,18 +39,20 @@ public sealed class Product : BaseEntity
         IsActive = false;
     }
 
-    public void ValidateCreation(string name, string description, decimal price)
+    public void ValidateCreation(string name, string description, decimal price, int quantity)
     {
         ValidateName(name);
         ValidateDescription(description);
         ValidatePrice(price);
+        ValidateQuantity(quantity);
     }
 
-    public void ValidateUpdate(string? name, string? description, decimal? price)
+    public void ValidateUpdate(string? name, string? description, decimal? price, int? quantity)
     {
         if (name is not null) ValidateName(name);  
         if (description is not null) ValidateDescription(description);
         if (price is not null) ValidatePrice(price.Value);
+        if (quantity is not null) ValidateQuantity(quantity.Value);
     }
 
     private void ValidateName(string name)
@@ -66,5 +70,10 @@ public sealed class Product : BaseEntity
     private void ValidatePrice(decimal price)
     {
         AssertionConcern.GreaterThanOrEqual(price, 0, ExceptionMessages.ProductPriceIsNegative);
+    }
+
+    private void ValidateQuantity(int quantity)
+    {
+        AssertionConcern.GreaterThanOrEqual(quantity, 0, ExceptionMessages.ProductQuantityIsNegative);
     }
 }

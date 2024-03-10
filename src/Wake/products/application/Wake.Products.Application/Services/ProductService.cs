@@ -67,7 +67,8 @@ public sealed class ProductService : IProductService
             var productToCreate = new Product(
                 createProductRequest.Name,
                 createProductRequest.Description,
-                createProductRequest.Price);
+                createProductRequest.Price,
+                createProductRequest.Quantity);
 
             var foundProduct = await _productRepository.GetActiveByNameAndPriceAsync(productToCreate.Name, productToCreate.Price);
             if (foundProduct is not null)
@@ -113,7 +114,8 @@ public sealed class ProductService : IProductService
             foundProduct.Update(
                 updateProductRequest.Name,
                 updateProductRequest.Description,
-                updateProductRequest.Price);
+                updateProductRequest.Price,
+                updateProductRequest.Quantity);
 
             var updatedProduct = await _productRepository.UpdateAsync(foundProduct) ??
                 throw new HttpInternalServerErrorException(ExceptionMessages.ProductNotUpdated);

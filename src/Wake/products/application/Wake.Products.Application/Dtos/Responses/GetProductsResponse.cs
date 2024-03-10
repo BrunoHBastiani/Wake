@@ -15,6 +15,7 @@ public sealed record GetProductsResponse
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
+                Quantity = product.Quantity,
                 CreatedAt = product.CreatedAt,
                 UpdatedAt = product.UpdatedAt,
                 IsActive = product.IsActive,

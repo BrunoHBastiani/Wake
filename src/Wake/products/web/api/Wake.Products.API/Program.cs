@@ -6,7 +6,7 @@ internal sealed class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddApiInitializers(builder.Configuration);
+        builder.Services.AddApiInitializers();
 
         var app = builder.Build();
 

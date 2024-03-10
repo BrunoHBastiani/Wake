@@ -7,6 +7,7 @@ public sealed record CreateProductResponse
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
+    public int Quantity { get; set; }
     public DateTime CreatedAt { get; set; }
 
     public static CreateProductResponse FromProductToDTO(Product product)
@@ -17,6 +18,7 @@ public sealed record CreateProductResponse
             Name = product.Name,
             Description = product.Description,
             Price = product.Price,
+            Quantity = product.Quantity,
             CreatedAt = product.CreatedAt,
         };
     }

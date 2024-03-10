@@ -41,6 +41,9 @@ public static class ExceptionMessages
     public const string ProductPriceIsNegative =
         "O preço do produto não pode ser negativo";
 
+    public const string ProductQuantityIsNegative =
+    "O estoque do produto não pode ser negativo";
+
     public const string ProductIsAlreadyDeactivated =
         "O produto informado já está desativado";
 }

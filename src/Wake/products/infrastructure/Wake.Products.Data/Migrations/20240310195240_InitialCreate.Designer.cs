@@ -12,7 +12,7 @@ using Wake.Products.Data;
 namespace Wake.Products.Data.Migrations
 {
     [DbContext(typeof(WakeProductsContext))]
-    [Migration("20240309234009_InitialCreate")]
+    [Migration("20240310195240_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -53,6 +53,10 @@ namespace Wake.Products.Data.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("price");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
@@ -64,52 +68,57 @@ namespace Wake.Products.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("68efd645-342c-4bc5-80ee-a4c518d327c3"),
+                            Id = new Guid("504391c6-c05f-4486-9f71-c7179388924b"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Televisão inteligente de alta definição 4K, com acesso a aplicativos de streaming",
                             IsActive = true,
                             Name = "Televisão Smart 4K",
                             Price = 1999.99m,
+                            Quantity = 2,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("3e22e0ca-a12c-4413-a728-8564ce6e9761"),
+                            Id = new Guid("d0647a40-0e34-4964-afad-49a8e5e4cd0a"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Notebook de última geração com processador Intel Core i7, 16GB de RAM e SSD de 512GB",
                             IsActive = true,
                             Name = "Notebook Dell Inspiron 15",
                             Price = 3499.99m,
+                            Quantity = 4,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("ff6401dd-7208-4711-bb6e-ef810689f078"),
+                            Id = new Guid("2189e256-efbc-4ba4-a92a-76e8f4bea5dd"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Smartphone premium com câmera de alta resolução, tela AMOLED de 6.2 polegadas e 128GB de armazenamento",
                             IsActive = true,
                             Name = "Smartphone Samsung Galaxy S21",
                             Price = 2999.99m,
+                            Quantity = 1,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("a6d807d2-6030-4e02-9708-a0439f34ba5c"),
+                            Id = new Guid("3c197895-c7a9-4e06-9ef6-71b2ba71a961"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Forno elétrico com capacidade para 45 litros, timer programável e função dourar",
                             IsActive = true,
                             Name = "Forno Elétrico Philco 45L",
                             Price = 349.99m,
+                            Quantity = 6,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("2933a0e5-3f9d-4591-a075-482ea27134d0"),
+                            Id = new Guid("856d2dc9-a93f-4b59-83d3-8b28cc88b9fe"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Cafeteira automática que prepara café expresso cremoso com apenas um toque",
                             IsActive = true,
                             Name = "Cafeteira Expresso Arno",
                             Price = 179.99m,
+                            Quantity = 4,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

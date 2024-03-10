@@ -20,9 +20,9 @@ public class ProductRepositoryTests
         using var context = new WakeProductsContext(_options);
 
         context.Products.AddRange(
-            new Product("Product 1", "Description 1", 100),
-            new Product("Product 2", "Description 2", 200),
-            new Product("Product 3", "Description 3", 300)
+            new Product("Product 1", "Description 1", 100, 6),
+            new Product("Product 2", "Description 2", 200, 6),
+            new Product("Product 3", "Description 3", 300, 6)
         );
 
         context.SaveChanges();
@@ -128,7 +128,7 @@ public class ProductRepositoryTests
         // Arrange
         using var context = new WakeProductsContext(_options);
         ProductRepository repository = new(context);
-        var newProduct = new Product("New Product", "New Description", 500);
+        var newProduct = new Product("New Product", "New Description", 500, 5);
 
         // Act
         var createdProduct = await repository.CreateAsync(newProduct);
@@ -156,7 +156,7 @@ public class ProductRepositoryTests
         using var context = new WakeProductsContext(_options);
         ProductRepository repository = new(context);
         var existingProduct = context.Products.First();
-        existingProduct.Update("Updated Product", null, null);
+        existingProduct.Update("Updated Product", null, null, null);
 
         // Act
         var updatedProduct = await repository.UpdateAsync(existingProduct);

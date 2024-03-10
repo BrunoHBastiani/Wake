@@ -1,17 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
-using Wake.Products.Data.Helpers;
 using Wake.Products.Domain.Entities;
 
 namespace Wake.Products.Data;
 public sealed class WakeProductsContext : DbContext
 {
-    private readonly ConnectionDB? _connection;
-    public WakeProductsContext(IOptions<ConnectionDB> connection) : base() 
-    {
-        _connection = connection.Value;
-    }
+    public WakeProductsContext() : base() { }
 
     public WakeProductsContext(DbContextOptions<WakeProductsContext> options) : base(options) { }
 
@@ -21,7 +15,7 @@ public sealed class WakeProductsContext : DbContext
     {
         if (optionsBuilder.IsConfigured) return;
 
-        optionsBuilder.UseNpgsql(_connection.ConnectionString);
+        optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=wakedb;User Id=admin;Password=admin;");
     }
 
     /// <summary>
