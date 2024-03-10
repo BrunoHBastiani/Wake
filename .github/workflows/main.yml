@@ -26,7 +26,7 @@ jobs:
       run: dotnet build --configuration Release ./src/Wake/Wake.sln
     
     - name: Unit Test
-      run: dotnet test --configuration Release --no-build --verbosity normal ./src/Wake/Products/Tests/Wake.Products.UnitTests.csproj
+      run: dotnet test --configuration Release --no-build --verbosity normal ./src/Wake/products/tests/Wake.Products.UnitTests.csproj
 
     - name: Integration Test
-      run: dotnet test --configuration Release --no-build --verbosity normal ./src/Wake/Products/Tests/Wake.Products.IntegrationTests.csproj
+      run: dotnet test --configuration Release --no-build --verbosity normal ./src/Wake/products/tests/Wake.Products.IntegrationTests.csproj
