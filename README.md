@@ -44,7 +44,7 @@ A partir deste cenário, adicionei alguma complexidade ao projeto para que pudes
 
 Tendo isso em mente, optei por seguir com a Arquitetura Limpa, onde o foco da aplicação é no domínio, onde as camadas internas desconhecem as camadas externas. Também segui os princípios SOLID e alguns princípios do DDD, como domínios ricos, para uma melhor organização e para separar corretamente o que é uma complexidade de negócio e o que é uma complexidade técnica,  e utilizando padrões de desenvolvimento simples como o repository para desacoplar e abstrair o banco de dados.
 
-Uma alternativa interessante para esse caso, seria utilizar o padrão arquitetural CQRS, onde a camada de dados é segregada em Commands (modificações no banco de dados) e Queries (buscas no banco de dados), pois além de evitar a bagunça da camada de dados no código durante a sua evolução, também é possível utilizar um banco de dados e/ou um ORM diferente para cada uma das duas camadas propostas. Neste caso, utilizaria o DAPPER como ORM na camada de busca e ter a liberdade de otimizar as consultas, pois poderia trazer um desempenho melhor em nesse cenário crítico.
+Uma alternativa interessante para esse caso, seria a utilização do padrão arquitetural CQRS, onde a camada de dados é segregada em Commands (modificações no banco de dados) e Queries (buscas no banco de dados), pois além de evitar a bagunça da camada de dados no código durante a sua evolução, também é possível utilizar um banco de dados e/ou um ORM diferente para cada uma das duas camadas propostas. Neste caso, utilizaria o DAPPER como ORM na camada de busca e ter a liberdade de otimizar as consultas, pois poderia trazer um desempenho melhor em nesse cenário crítico.
 
 Também desenvolvi esse projeto pensando em uma possível migração para microsserviços. Portanto, desenvolvi a API com separação em módulo totalmente desacoplada de qualquer outra API que possa ser criada futuramente na evolução do produto.
 
@@ -53,7 +53,7 @@ Também desenvolvi esse projeto pensando em uma possível migração para micros
 
 ## Entity Framework e .NET
 
-Projeto desenvolvido com EF Core e .NET 8.0, utilizando Code First, onde eu modelo minhas entidades e mapeio elas informando o nome que devem ter na base e algumas outras caracteristicas, e a partir delas, o EF Core gera o banco de dados.
+Projeto desenvolvido com EF Core e .NET Core 8.0, utilizando Code First, onde eu modelo minhas entidades e mapeio elas informando o nome que devem ter na base e algumas outras caracteristicas, e a partir delas, o EF Core gera o banco de dados.
 Utilizei o code first para criar a base já populada com cinco produtos.
 
 ## Explicação dos Projetos
