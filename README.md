@@ -93,6 +93,8 @@ Utilizei o Code First para criar a base já populada com cinco produtos.
 - **Wake.Products.IntegrationTests**
     - Responsável por testar as integrações do sistema, como a integração das funcionalidades da API, bem como as funcionalidades voltadas para o banco de dados.
 
+**OBS: o projeto de testes integrados está utilizando banco de dados em memória, para não impactar nenhum dado de "produção"**
+
 ## GitHub Actions
 
 O workflow foi configurado para ser acionado sempre que é feito um "push" na master. Está configurado para realizar o build da aplicação e executar os testes unitários e de integração, sempre utilizando o .NET 8.0.x.
