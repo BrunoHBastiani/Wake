@@ -34,7 +34,7 @@ API de produtos com 5 funcionalidades:
 - SGBD Postgres de sua preferência. No meu caso, estou usando o Beekeeper.
   - [Download do Beekeeper](https://www.beekeeperstudio.io/get)
 
-## Inicializando o Projeto
+## Executar o Projeto
 
 Escolha um diretório de sua preferência e clone o projeto:
 ```
