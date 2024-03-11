@@ -14,6 +14,7 @@ public static class Initializer
         this IServiceCollection services)
     {
         services.AddScoped<WakeProductsContext>();
+
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IProductRepository, ProductRepository>();
 

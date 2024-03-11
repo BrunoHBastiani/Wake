@@ -6,7 +6,7 @@ public static class ExceptionMessages
 
     //Products Messages
     public const string ProductAlreadyExists =
-        "Já existe um produto ativo com essas caracteristicas";
+        "Já existe um produto ativo com esse nome";
 
     public const string ProductDescriptionExceedsMaximumCharacterLimit =
         "Ocorreu um erro interno no servidor durante o processamento. Favor entrar em contato com o suporte para mais informações";

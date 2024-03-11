@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using Wake.Products.Data;
-using Wake.Products.Data.Interfaces;
 using Wake.Products.Data.Repositories;
 using Wake.Products.Domain.Entities;
 using Wake.Products.Domain.Exceptions;
@@ -100,7 +99,7 @@ public class ProductRepositoryTests
         var existingProduct = context.Products.First();
 
         // Act
-        var product = await repository.GetActiveByNameAndPriceAsync(existingProduct.Name, existingProduct.Price);
+        var product = await repository.GetActiveByNameAsync(existingProduct.Name);
 
         // Assert
         Assert.NotNull(product);
@@ -116,7 +115,7 @@ public class ProductRepositoryTests
         ProductRepository repository = new(context);
 
         // Act
-        var product = await repository.GetActiveByNameAndPriceAsync("NonExistingProduct", 999);
+        var product = await repository.GetActiveByNameAsync("NonExistingProduct");
 
         // Assert
         Assert.Null(product);

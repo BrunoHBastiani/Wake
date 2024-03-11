@@ -10,9 +10,11 @@ API de produtos com 5 funcionalidades:
 
 - **Obter produtos com base em um filtro, com opções de ordenação**
     - Filtragem pelos principais campos
-    - Opções de ordenação por qualquer campo desejado
+    - Opções de ordenação por qualquer campo
     - Ordenação pode ser ASC ou DESC
+    - Não é permitido filtrar por estoque ou preço negativo
 - **Criar um novo produto**
+	- Não é possível criar dois produtos com nomes identicos
     - O nome do produto deve ter no máximo 100 caracteres
     - O nome do produto deve ter no mínimo 2 caracteres
     - A descrição do produto deve ter no máximo 200 caracteres
@@ -53,7 +55,7 @@ Para validar se tudo deu certo, a API deve ser compilada e iniciada sem erros, e
       SENHA: admin
       BANCO DE DADOS: wakedb
 
-## Decisões de desenvolvimento do Projeto
+## Decisões de Desenvolvimento do Projeto
 
 Este projeto foi desenvolvido idealizando um cenário real, onde me imaginei desenvolvendo um sistema para um e-commerce, decidindo quais arquitetura, padrões de projeto e outras características de projeto eu iria usar.
 A partir deste cenário, adicionei alguma complexidade ao projeto para que pudesse simular cenários de pico de uso do sistema, como ocorre na black friday, por exemplo.

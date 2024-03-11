@@ -21,8 +21,6 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            //await using var context = new WakeProductsContext();
-
             IQueryable<Product> productsQuery = _context.Products;
 
             if (getProductsFilter.FieldNameToOrder.HasValue)
@@ -45,6 +43,21 @@ public sealed class ProductRepository : IProductRepository
                 productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(getProductsFilter.Name.ToLower()));
             }
 
+            if (getProductsFilter.MinQuantity is not null)
+            {
+                productsQuery = productsQuery.Where(p => p.Quantity >= getProductsFilter.MinQuantity);
+            }
+
+            if (getProductsFilter.MaxQuantity is not null)
+            {
+                productsQuery = productsQuery.Where(p => p.Quantity <= getProductsFilter.MaxQuantity);
+            }
+
+            if (getProductsFilter.ExactQuantity is not null)
+            {
+                productsQuery = productsQuery.Where(p => p.Quantity ==  getProductsFilter.ExactQuantity);
+            }
+
             if (getProductsFilter.MinPrice is not null)
             {
                 productsQuery = productsQuery.Where(p => p.Price >= getProductsFilter.MinPrice);
@@ -55,9 +68,9 @@ public sealed class ProductRepository : IProductRepository
                 productsQuery = productsQuery.Where(p => p.Price <= getProductsFilter.MaxPrice);
             }
 
-            if (getProductsFilter.ExactValue is not null)
+            if (getProductsFilter.ExactPrice is not null)
             {
-                productsQuery = productsQuery.Where(p => p.Price ==  getProductsFilter.ExactValue);
+                productsQuery = productsQuery.Where(p => p.Price ==  getProductsFilter.ExactPrice);
             }
 
             if (getProductsFilter.IsActive is not null)
@@ -79,8 +92,6 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            //await using var context = new WakeProductsContext();
-
             var foundProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
 
             return foundProduct;
@@ -95,8 +106,6 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            //await using var context = new WakeProductsContext();
-
             var foundProduct = await _context.Products
                 .FirstOrDefaultAsync(p =>
                     p.Id == productId &&
@@ -110,16 +119,13 @@ public sealed class ProductRepository : IProductRepository
         }
     }
 
-    public async Task<Product?> GetActiveByNameAndPriceAsync(string name, decimal price)
+    public async Task<Product?> GetActiveByNameAsync(string name)
     {
         try
         {
-            //await using var context = new WakeProductsContext();
-
             var foundProduct = await _context.Products
                 .FirstOrDefaultAsync(p =>
                     p.Name == name &&
-                    p.Price == price &&
                     p.IsActive == true);
 
             return foundProduct;
@@ -134,8 +140,6 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            //await using var context = new WakeProductsContext();
-
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
@@ -151,8 +155,6 @@ public sealed class ProductRepository : IProductRepository
     {
         try
         {
-            //await using var context = new WakeProductsContext();
-
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 

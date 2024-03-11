@@ -35,21 +35,28 @@ public class ProductServiceTests
     }
 
     [Theory]
-    [InlineData(null, null, null, 1.5, 1.3, -1.1, null, ExceptionMessages.ProductPriceIsNegative)]
-    [InlineData(null, null, null, 1.5, -1.3, 1.1, null, ExceptionMessages.ProductPriceIsNegative)]
-    [InlineData(null, null, null, -1.5, 1.3, 1.1, null, ExceptionMessages.ProductPriceIsNegative)]
+    [InlineData(null, null, null, 0, 0, 0, 1.5, 1.3, -1.1, null, ExceptionMessages.ProductPriceIsNegative)]
+    [InlineData(null, null, null, 0, 0, 0, 1.5, -1.3, 1.1, null, ExceptionMessages.ProductPriceIsNegative)]
+    [InlineData(null, null, null, 0, 0, 0, -1.5, 1.3, 1.1, null, ExceptionMessages.ProductPriceIsNegative)]
+    [InlineData(null, null, null, -1, 1, 1, 0, 0, 0, null, ExceptionMessages.ProductQuantityIsNegative)]
+    [InlineData(null, null, null, 1, -1, 1, 0, 0, 0, null, ExceptionMessages.ProductQuantityIsNegative)]
+    [InlineData(null, null, null, 1, 1, -1, 0, 0, 0, null, ExceptionMessages.ProductQuantityIsNegative)]
     public async Task GetAsync_InvalidRequest_ThrowsException(
         string? name, string? fieldNameToOrder, string? order,
-        decimal minValue, decimal maxValue, decimal exactValue,
+        int minQuantity, int maxQuantity, int exactQuantity,
+        decimal minValue, decimal maxValue, decimal exactPrice,
         bool? isActive, string expectedErrorMessage)
     {
         // Arrange
         var getProductRequest = new GetProductsRequest
         {
             Name = name,
+            MinQuantity = minQuantity,
+            MaxQuantity = maxQuantity,
+            ExactQuantity = exactQuantity,
             MaxPrice = maxValue,
             MinPrice = minValue,
-            ExactValue = exactValue,
+            ExactPrice = exactPrice,
             IsActive = isActive,
 
             FieldNameToOrder = fieldNameToOrder is not null ?
@@ -109,7 +116,7 @@ public class ProductServiceTests
 
         var mockRepository = new Mock<IProductRepository>();
 
-        mockRepository.Setup(repo => repo.GetActiveByNameAndPriceAsync(It.IsAny<string>(), It.IsAny<decimal>()))
+        mockRepository.Setup(repo => repo.GetActiveByNameAsync(It.IsAny<string>()))
             .ReturnsAsync((Product?)null);
 
         var validProduct = new Product("Product Name", "Product Description", 10.7m, 3);
@@ -146,7 +153,7 @@ public class ProductServiceTests
 
         var mockRepository = new Mock<IProductRepository>();
 
-        mockRepository.Setup(repo => repo.GetActiveByNameAndPriceAsync(It.IsAny<string>(), It.IsAny<decimal>()))
+        mockRepository.Setup(repo => repo.GetActiveByNameAsync(It.IsAny<string>()))
             .ReturnsAsync((Product?)null);
 
         var validProduct = new Product("Product Name", "Product Description", 10.7m, 3);
@@ -169,7 +176,7 @@ public class ProductServiceTests
         var productId = Guid.NewGuid();
         var mockRepository = new Mock<IProductRepository>();
 
-        mockRepository.Setup(repo => repo.GetActiveByNameAndPriceAsync(It.IsAny<string>(), It.IsAny<decimal>()))
+        mockRepository.Setup(repo => repo.GetActiveByNameAsync(It.IsAny<string>()))
             .ReturnsAsync((Product?)null);
 
         mockRepository.Setup(repo => repo.GetActiveByIdAsync(productId))
@@ -207,7 +214,7 @@ public class ProductServiceTests
         var productId = Guid.NewGuid();
         var mockRepository = new Mock<IProductRepository>();
 
-        mockRepository.Setup(repo => repo.GetActiveByNameAndPriceAsync(It.IsAny<string>(), It.IsAny<decimal>()))
+        mockRepository.Setup(repo => repo.GetActiveByNameAsync(It.IsAny<string>()))
             .ReturnsAsync((Product?)null);
 
         mockRepository.Setup(repo => repo.GetActiveByIdAsync(productId))

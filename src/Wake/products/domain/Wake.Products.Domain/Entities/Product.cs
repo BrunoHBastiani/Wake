@@ -30,6 +30,7 @@ public sealed class Product : BaseEntity
         if (name is not null) Name = name;
         if (description is not null) Description = description;
         if (price is not null) Price = price.Value;
+        if (quantity is not null) Quantity = quantity.Value;
     }
 
     public void Deactivate()
@@ -49,7 +50,7 @@ public sealed class Product : BaseEntity
 
     public void ValidateUpdate(string? name, string? description, decimal? price, int? quantity)
     {
-        if (name is not null) ValidateName(name);  
+        if (name is not null) ValidateName(name);
         if (description is not null) ValidateDescription(description);
         if (price is not null) ValidatePrice(price.Value);
         if (quantity is not null) ValidateQuantity(quantity.Value);
@@ -61,7 +62,7 @@ public sealed class Product : BaseEntity
         AssertionConcern.SizeGreaterThanOrEqual(name, 2, ExceptionMessages.ProductNameBelowMinimumCharacterLimit);
         AssertionConcern.SizeLessThanOrEqual(name, 100, ExceptionMessages.ProductNameExceedsMaximumCharacterLimit);
     }
-    
+
     private void ValidateDescription(string description)
     {
         AssertionConcern.SizeLessThanOrEqual(description, 200, ExceptionMessages.ProductDescriptionExceedsMaximumCharacterLimit);

@@ -48,15 +48,16 @@ public sealed class ProductTests
         string newName = "Updated Name";
         string newDescription = "Updated Description";
         decimal newPrice = 2.5m;
-        int quantity = 0;
+        int newQuantity = 4;
 
         // Act
-        product.Update(newName, newDescription, newPrice, quantity);
+        product.Update(newName, newDescription, newPrice, newQuantity);
 
         // Assert
         Assert.Equal(newName, product.Name);
         Assert.Equal(newDescription, product.Description);
         Assert.Equal(newPrice, product.Price);
+        Assert.Equal(newQuantity, product.Quantity);
     }
 
     [Theory]

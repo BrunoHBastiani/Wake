@@ -70,7 +70,7 @@ public sealed class ProductService : IProductService
                 createProductRequest.Price,
                 createProductRequest.Quantity);
 
-            var foundProduct = await _productRepository.GetActiveByNameAndPriceAsync(productToCreate.Name, productToCreate.Price);
+            var foundProduct = await _productRepository.GetActiveByNameAsync(productToCreate.Name);
             if (foundProduct is not null)
             {
                 throw new HttpBadRequestException(ExceptionMessages.ProductAlreadyExists);
@@ -97,10 +97,10 @@ public sealed class ProductService : IProductService
     {
         try
         {
-            if (updateProductRequest.Name is not null && updateProductRequest.Price is not null)
+            if (updateProductRequest.Name is not null)
             {
                 var existingProduct = await _productRepository
-                    .GetActiveByNameAndPriceAsync(updateProductRequest.Name, updateProductRequest.Price.Value);
+                    .GetActiveByNameAsync(updateProductRequest.Name);
 
                 if (existingProduct is not null)
                 {

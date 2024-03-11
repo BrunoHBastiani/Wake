@@ -7,7 +7,7 @@ public interface IProductRepository
     Task<List<Product>?> GetAsync(GetProductsFilter getProductsFilter);
     Task<Product?> GetByIdAsync(Guid productId);
     Task<Product?> GetActiveByIdAsync(Guid productId);
-    Task<Product?> GetActiveByNameAndPriceAsync(string name, decimal price);
+    Task<Product?> GetActiveByNameAsync(string name);
     Task<Product?> CreateAsync(Product product);
     Task<Product?> UpdateAsync(Product product);
 }
